@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:white;
+  font-family:Arial, sans-serif;
+  text-align:center;
+}
+
+h1{
+  font-size:28px;
+  margin:20px 0;
+}
+
+.teddy{
+  width:150px;
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%{transform:translateY(0px);}
+  50%{transform:translateY(-10px);}
+  100%{transform:translateY(0px);}
+}
+
+.buttons{
+  margin-top:20px;
+}
+
+button{
+  padding:12px 22px;
+  font-size:16px;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  margin:10px;
+}
+
+#yesBtn{
+  background:#4CAF50;
+  color:white;
+}
+
+#noBtn{
+  background:#e53935;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<<img class="teddy" 
+src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif" 
+alt="teddy">
+<h1 id="question">Sanjana Satdev! Will you be my Valentine?</h1>
+
+<div class="buttons">
+  <button id="yesBtn">Yes</button>
+  <button id="noBtn">No</button>
+</div>
+
+<script>
+
+const question = document.getElementById("question");
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+let clickCount = 0;
+let scale = 1;
+
+const noTexts = [
+  "Are you sure?",
+  "Really sure?",
+  "Give it another thought!",
+  "You might regret this!"
+];
+
+noBtn.addEventListener("click", () => {
+
+  if(clickCount < noTexts.length){
+    noBtn.textContent = noTexts[clickCount];
+    clickCount++;
+
+    scale += 0.4;
+    yesBtn.style.transform = `scale(${scale})`;
+  }
+  else{
+    noBtn.style.display = "none";
+  }
+
+});
+
+yesBtn.addEventListener("click", () => {
+  document.body.innerHTML = `
+    <h1 style="font-size:40px;color:#ff4081;">YAYYYYY! 💖🎉</h1>
+  `;
+
+  confetti({
+    particleCount:300,
+    spread:120,
+    origin:{y:0.6}
+  });
+});
+
+</script>
+
+</body>
+</html>
